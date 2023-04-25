@@ -1,4 +1,4 @@
-{{TABLE NAME}} Model and Repository Classes Design Recipe
+Artists Model and Repository Classes Design Recipe
 
 Copy this recipe template to design and implement Model and Repository classes for a database table.
 
@@ -46,16 +46,16 @@ psql -h 127.0.0.1 your_database_name < seeds_{table_name}.sql
 Usually, the Model class name will be the capitalised table name (single instead of plural). The same name is then suffixed by Repository for the Repository class name.
 
 # EXAMPLE
-# Table name: students
+# Table name: artists
 
 # Model class
-# (in lib/student.rb)
-class Student
+# (in lib/artists.rb)
+class Artists
 end
 
 # Repository class
-# (in lib/student_repository.rb)
-class StudentRepository
+# (in lib/artists_repository.rb)
+class ArtistsRepository
 end
 4. Implement the Model class
 
@@ -89,40 +89,22 @@ Your Repository class will need to implement methods for each "read" or "write" 
 Using comments, define the method signatures (arguments and return value) and what they do - write up the SQL queries that will be used by each method.
 
 # EXAMPLE
-# Table name: students
+# Table name: artists
 
 # Repository class
-# (in lib/student_repository.rb)
+# (in lib/artists_repository.rb)
 
-class StudentRepository
+class ArtistsRepository
 
   # Selecting all records
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students;
+    # SELECT id, name, genre FROM artists;
 
-    # Returns an array of Student objects.
+    # Returns an array of Artists objects.
   end
 
-  # Gets a single record by its ID
-  # One argument: the id (number)
-  def find(id)
-    # Executes the SQL query:
-    # SELECT id, name, cohort_name FROM students WHERE id = $1;
-
-    # Returns a single Student object.
-  end
-
-  # Add more methods below for each operation you'd like to implement.
-
-  # def create(student)
-  # end
-
-  # def update(student)
-  # end
-
-  # def delete(student)
   # end
 end
 6. Write Test Examples
@@ -134,35 +116,16 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all students
+# Get all artists
 
-repo = StudentRepository.new
+repo = ArtistRepository.new
 
-students = repo.all
+artists = repo.all
+artists.length => 2
+artists.first.id => 1
+artists.first.name => 'Pixies'
 
-students.length # =>  2
 
-students[0].id # =>  1
-students[0].name # =>  'David'
-students[0].cohort_name # =>  'April 2022'
-
-students[1].id # =>  2
-students[1].name # =>  'Anna'
-students[1].cohort_name # =>  'May 2022'
-
-# 2
-# Get a single student
-
-repo = StudentRepository.new
-
-student = repo.find(1)
-
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
-
-# Add more examples for each method
-Encode this example as a test.
 
 7. Reload the SQL seeds before each test run
 
